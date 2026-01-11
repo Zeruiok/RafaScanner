@@ -305,13 +305,12 @@ function detectarBypassShell() {
      }
     
     if ($bypassDetectado) {
-        echo $bold . $vermelho . "\n[!] ========== ATENÇÃO ==========\n";
-        echo $bold . $vermelho . "[!] BYPASS DE FUNÇÕES SHELL DETECTADO!\n";
-        echo $bold . $vermelho . "[!] O usuário está utilizando scripts maliciosos!\n";
-        echo $bold . $vermelho . "[!] APLIQUE O W.O IMEDIATAMENTE!\n";
-        echo $bold . $vermelho . "[!] ==============================\n\n";
+        echo $bold . $vermelho . "\n[!] -‐------- ATENÇÃO ----------\n";
+        echo $bold . $vermelho . "[!] |BYPASS SHELL DETECTADO!      |\n";
+        echo $bold . $vermelho . "[!] |APLIQUE O W.O IMEDIATAMENTE! |\n";
+        echo $bold . $vermelho . "[!] |-----------------------------|\n\n";
     } else {
-        echo $bold . $fverde . "[i] Nenhum bypass de funções shell detectado.\n\n";
+        echo $bold . $fverde . "[i] Nenhum bypass shell encontrado.\n\n";
     }
 }
 
@@ -330,7 +329,7 @@ echo "\n";
 menuscanner:
 
     rafa_banner();
-      echo $amarelo . " [0]  Conectar ADB$branco (Pareamento e conexão via ADB)$fverde \n [1]  Escanear FreeFire Normal \n$fverde [2]  Escanear FreeFire Max \n {$vermelho}[E]  Sair \n\n" . $cln;
+      echo $azul . " [0]  Conectar ADB$branco (Pareamento via ADB)$azul \n [1]  FreeFire Normal \n$azul [2]  FreeFire Max \n {$vermelho}[E]  Sair \n\n" . $cln;
 escolheropcoes:
     inputusuario("Escolha uma das opções");
     $opcaoscanner = trim(fgets(STDIN, 1024));
@@ -352,7 +351,6 @@ escolheropcoes:
             system("clear");
             rafa_banner();
             
-            // Verificar e instalar android-tools se necessário
             echo $bold . $azul . "[+] Verificando se o ADB está instalado...\n" . $cln;
             if (!shell_exec("adb version > /dev/null 2>&1"))
             {
@@ -363,7 +361,6 @@ escolheropcoes:
                 echo $bold . $fverde . "[i] ADB já está instalado.\n\n" . $cln;
             }
             
-            // Pareamento ADB
             inputusuario("Qual a sua porta para o pareamento ex: 12345?");
             $pair_port = trim(fgets(STDIN, 1024));
             if (!empty($pair_port) && is_numeric($pair_port)) {
@@ -379,7 +376,7 @@ escolheropcoes:
             
             echo "\n";
             
-            // Conexão ADB
+            // Conexão 
             inputusuario("Qual a sua porta para a conexão ex: 12345?");
             $connect_port = trim(fgets(STDIN, 1024));
             if (!empty($connect_port) && is_numeric($connect_port)) {
@@ -467,12 +464,12 @@ escolheropcoes:
             }
             
             echo $bold . $fverde . "[i] Nenhum script ativo detectado.\n";
-            echo $bold . $azul . "[+] Finalizando sessões bash desnecessárias...\n";
+            echo $bold . $azul . "[+] Finalizando sessões desnecessárias...\n";
             $comandoKillBash = 'adb shell "current_pid=\$\$; for pid in \$(pgrep bash); do [ \"\$pid\" -ne \"\$current_pid\" ] && kill -9 \$pid; done"';
             shell_exec($comandoKillBash);
             echo $bold . $fverde . "[i] Sessões desnecessárias finalizadas.\n\n";
 
-            // Detecção de Bypass de Funções Shell
+            // Detecção de Bypass Shell
             echo $bold . $amarelo. "[•] Verificando bypass shell..\n";
             detectarBypassShell();
 
@@ -2591,5 +2588,6 @@ escolheropcoes:
             die();
         }
       }
+
 
 
