@@ -55,7 +55,7 @@ ART;
 function atualizar()
 {
     global $cln, $bold, $fverde;
-    echo "\n\e[91m\e[1m[+] RafaScanner [+]\nAtualizando, por favor aguarde...\n\n" . $cln;
+    echo "\n\e[91m\e[1m[!] RafaScanner [!]\nAtualizando, por favor aguarde...\n\n" . $cln;
     system("git fetch origin && git reset --hard origin/master && git clean -f -d");
     echo $bold . $fverde . "[i] Atualização concluida! Por favor reinicie o Scanner \n" . $cln;
     exit;
@@ -67,7 +67,7 @@ function detectarBypassShell() {
     
     $bypassDetectado = false;
     
-    echo $bold . $branco . "[•] Verificando funções maliciosas no ambiente shell...\n";
+    echo $bold . $branco . "[•] Verificando funções no shell...\n";
     
     $funcoesTeste = [
         'pkg' => 'adb shell "type pkg 2>/dev/null | grep -q function && echo FUNCTION_DETECTED"',
@@ -86,7 +86,7 @@ function detectarBypassShell() {
         }
      
      if (!$executouChecksExtra) {
-         echo $bold . $branco . "[•] Testando acesso a diretórios críticos...\n";
+         echo $bold . $branco . "[•] Testando acesso a diretórios...\n";
          
          $diretoriosCriticos = [
              '/system/bin',
@@ -109,13 +109,13 @@ function detectarBypassShell() {
                      ($resultadoTestDir !== null && strpos($resultadoTestDir, 'bypass') !== false)) {
                      
                      echo $bold . $vermelho . "[!] BYPASS DETECTADO: Acesso bloqueado/redirecionado ao diretório: $diretorio\n";
-                     echo $bold . $amarelo . "[!] Resposta: " . trim($resultadoTestDir ?? '') . "\n";
+                     echo $bold . $vermelho . "[!] Resposta: " . trim($resultadoTestDir ?? '') . "\n";
                      $bypassDetectado = true;
                  }
              }
          }
          
-         echo $bold . $branco . "[•] Verificando processos suspeitos...\n";
+         echo $bold . $branco . "[•] Verificando processos...\n";
          
      $comandoProcessos = 'adb shell "ps | grep -E \"(bypass|redirect|fake)\" | grep -vE \"(drm_fake_vsync|mtk_drm_fake_vsync|mtk_drm_fake_vs)\" 2>/dev/null"';
          $resultadoProcessos = shell_exec($comandoProcessos);
@@ -147,7 +147,7 @@ function detectarBypassShell() {
      }
     }
     
-    echo $bold . $branco . "[•] Verificando arquivos de configuração...\n";
+    echo $bold . $branco . "[•] Verificando arquivos de config...\n";
     $arquivosConfig = [
         '~/.bashrc', '~/.bash_profile', '~/.profile', '~/.zshrc', 
         '~/.config/fish/config.fish', '/data/data/com.termux/files/usr/etc/bash.bashrc'
@@ -158,13 +158,13 @@ function detectarBypassShell() {
         $resultadoArquivo = shell_exec($comandoVerificar);
         
         if ($resultadoArquivo !== null && !empty(trim($resultadoArquivo))) {
-            echo $bold . $vermelho . "[!] BYPASS DETECTADO: Funções maliciosas em $arquivo!\n";
+            echo $bold . $vermelho . "[!] BYPASS DETECTADO:  em $arquivo!\n";
             echo $bold . $amarelo . "[!] Conteúdo detectado:\n" . trim($resultadoArquivo) . "\n";
             $bypassDetectado = true;
         }
     }
     
-     echo $bold . $branco . "[•] Testando comportamento das funções...\n";
+     echo $bold . $branco . "[•] Testando funções...\n";
      
      $comandoTestGitReal = 'adb shell "cd /tmp 2>/dev/null || cd /data/local/tmp; git clone --help 2>&1 | head -1"';
      $resultadoGitHelp = shell_exec($comandoTestGitReal);
@@ -198,7 +198,7 @@ function detectarBypassShell() {
          }
      }
     
-     echo $bold . $branco . "[•] Testando manipulação da função stat...\n";
+     echo $bold . $branco . "[•] Testando função stat...\n";
      
      $arquivoTeste = '/data/local/tmp/test_stat_' . time();
      $comandoCriarArquivo = 'adb shell "echo test > ' . $arquivoTeste . ' 2>/dev/null"';
@@ -245,7 +245,7 @@ function detectarBypassShell() {
          }
      }
     
-     echo $bold . $branco . "[•] Testando comportamento do comando cd...\n";
+     echo $bold . $branco . "[•] Testando  comando cd...\n";
      
      $comandoTestCd = 'adb shell "cd /tmp 2>/dev/null || cd /data/local/tmp; pwd; cd /; pwd"';
      $resultadoTestCd = shell_exec($comandoTestCd);
@@ -256,7 +256,7 @@ function detectarBypassShell() {
          $bypassDetectado = true;
      }
      
-     echo $bold . $branco . "[•] Testando integridade de comandos básicos...\n";
+     echo $bold . $branco . "[•] Testando comandos básicos...\n";
      
      $testesComandos = [
          'which' => ['adb shell "which ls 2>/dev/null"', '/system/bin/ls'],
@@ -284,14 +284,14 @@ function detectarBypassShell() {
         $bypassDetectado = true;
     }
     
-     echo $bold . $branco . "[•] Verificando arquivos de bypass no dispositivo...\n";
+     echo $bold . $branco . "[•] Verificando arquivos de bypass...\n";
      
      $comandoArquivosBypass = 'adb shell "find /sdcard /data/local/tmp /data/data/com.termux/files/home -name \"*.sh\" -exec grep -l \"function pkg\\|function git\\|function cd\\|function stat\\|function adb\\|wendell77x\\|FAKE_ADB_SHELL\" {} \\; 2>/dev/null | head -10"';
      $resultadoArquivosBypass = shell_exec($comandoArquivosBypass);
      
      if ($resultadoArquivosBypass !== null && !empty(trim($resultadoArquivosBypass))) {
-         echo $bold . $vermelho . "[!] BYPASS DETECTADO: Arquivos de bypass encontrados!\n";
-         echo $bold . $amarelo . "[!] Arquivos suspeitos:\n" . trim($resultadoArquivosBypass) . "\n";
+         echo $bold . $vermelho . "[!] BYPASS DETECTADO: Arquivos bypass encontrados!\n";
+         echo $bold . $amarelo . "[!] Arquivos:\n" . trim($resultadoArquivosBypass) . "\n";
          $bypassDetectado = true;
      }
      
@@ -2591,4 +2591,5 @@ escolheropcoes:
             die();
         }
       }
+
 
