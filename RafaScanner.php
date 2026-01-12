@@ -453,7 +453,7 @@ escolheropcoes:
                 }
                 
 
-            echo $bold . $amarelo. "[+] Verificando scripts ativos em segundo plano...\n";
+            echo $bold . $amarelo. "[•] Verificando scripts ativos em segundo plano...\n";
             $comandoScripts = 'adb shell "pgrep -a bash | awk \'{\$1=\"\"; sub(/^ /,\"\"); print}\' | grep -vFx \"/data/data/com.termux/files/usr/bin/bash -l\""';
             $scriptsAtivos = shell_exec($comandoScripts);
             
@@ -868,7 +868,7 @@ escolheropcoes:
 
                         echo $bold . $amarelo . "[•] Data de acesso da pasta MReplays: $dataFormatada\n";
                         echo $bold . $amarelo . "[•] Data de instalação do Free Fire: $dataInstalacaoFormatada\n";
-                        echo $bold . $branco . "[•] Verifique a data de instalação do jogo com a data de acesso da pasta MReplays para ver se o jogo foi recém instalado antes da partida, se não, vá no histórico e veja se o player jogou outras partidas recentemente, se sim, aplique  w.o\n\n";
+                        echo $bold . $branco . "[X]n\n";
                     } else {
                         echo $bold . $vermelho . "[!] Não foi possível obter a data de acesso da pasta MReplays\n\n";
                     }
@@ -2588,4 +2588,5 @@ escolheropcoes:
             die();
         }
       }
+
 
