@@ -46,7 +46,7 @@ function rafa_banner() {
 |____/ \__,_|\__\__,_|  |____/|_____|_____|
 ART;
     ui_print($art, C_RED);
-    ui_print("    " . C_CYAN . "RafaSs anti-bypass inspirado no kellerS2" . C_RESET . "    " . C_MAGENTA . "(v1.0)" . C_RESET);
+    ui_print("    " . C_CYAN . "RafaSs anti-bypass Credits: kellerSS" . C_RESET . "    " . C_MAGENTA . "(v1.0)" . C_RESET);
     ui_print("    " . C_YELLOW . "Scanner Android - Use apenas com autorização do proprietário" . C_RESET);
     ui_print(str_repeat("-", 62), C_RED);
     echo PHP_EOL;
@@ -2588,6 +2588,7 @@ escolheropcoes:
             die();
         }
       }
+
 
 
 
