@@ -868,7 +868,6 @@ escolheropcoes:
 
                         echo $bold . $amarelo . "[•] Data de acesso da pasta MReplays: $dataFormatada\n";
                         echo $bold . $amarelo . "[•] Data de instalação do Free Fire: $dataInstalacaoFormatada\n";
-                        echo $bold . $branco . "[X]n\n";
                     } else {
                         echo $bold . $vermelho . "[!] Não foi possível obter a data de acesso da pasta MReplays\n\n";
                     }
@@ -2588,5 +2587,6 @@ escolheropcoes:
             die();
         }
       }
+
 
 
