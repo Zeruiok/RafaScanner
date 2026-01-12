@@ -306,8 +306,8 @@ function detectarBypassShell() {
     
     if ($bypassDetectado) {
         echo $bold . $vermelho . "\n[!] -‐------- ATENÇÃO ----------\n";
-        echo $bold . $vermelho . "[!] |BYPASS SHELL DETECTADO!      |\n";
-        echo $bold . $vermelho . "[!] |APLIQUE O W.O IMEDIATAMENTE! |\n";
+        echo $bold . $vermelho . "[!] | BYPASS SHELL DETECTADO!      |\n";
+        echo $bold . $vermelho . "[!] | APLIQUE  W.O IMEDIATAMENTE! |\n";
         echo $bold . $vermelho . "[!] |-----------------------------|\n\n";
     } else {
         echo $bold . $fverde . "[i] Nenhum bypass shell encontrado.\n\n";
@@ -351,7 +351,7 @@ escolheropcoes:
             system("clear");
             rafa_banner();
             
-            echo $bold . $azul . "[+] Verificando se o ADB está instalado...\n" . $cln;
+            echo $bold . $azul . "[•] Verificando se o ADB está instalado...\n" . $cln;
             if (!shell_exec("adb version > /dev/null 2>&1"))
             {
                 echo $bold . $amarelo . "[!] ADB não encontrado. Instalando android-tools...\n" . $cln;
@@ -383,7 +383,7 @@ escolheropcoes:
                 echo $bold . $amarelo . "\n[!] Conectando ao dispositivo...\n" . $cln;
                 system("adb connect localhost:" . $connect_port);
                 echo $bold . $fverde . "\n[i] Processo de conexão finalizado. Verifique a saída acima para ver se a conexão foi bem-sucedida.\n" . $cln;
-                echo $bold . $branco . "\n[+] Pressione Enter para voltar ao menu...\n" . $cln;
+                echo $bold . $branco . "\n[•] Pressione Enter para voltar ao menu...\n" . $cln;
                 fgets(STDIN, 1024);
                 system("clear");
                 rafa_banner();
@@ -464,7 +464,7 @@ escolheropcoes:
             }
             
             echo $bold . $fverde . "[i] Nenhum script ativo detectado.\n";
-            echo $bold . $azul . "[+] Finalizando sessões desnecessárias...\n";
+            echo $bold . $azul . "[•] Finalizando sessões desnecessárias...\n";
             $comandoKillBash = 'adb shell "current_pid=\$\$; for pid in \$(pgrep bash); do [ \"\$pid\" -ne \"\$current_pid\" ] && kill -9 \$pid; done"';
             shell_exec($comandoKillBash);
             echo $bold . $fverde . "[i] Sessões desnecessárias finalizadas.\n\n";
@@ -569,7 +569,7 @@ escolheropcoes:
 
         
             
-            echo $bold . $amarelo . "\n[+] Checando se modificou data e hora...\n";
+            echo $bold . $amarelo . "\n[•] Checando se modificou data e hora...\n";
             $autoTime = trim(shell_exec('adb shell settings get global auto_time'));
             $autoTimeZone = trim(shell_exec('adb shell settings get global auto_time_zone'));
 
@@ -579,10 +579,10 @@ escolheropcoes:
                 echo $bold . $fverde . "[i] Data e fuso horário automático estão ativados.\n";
             }
 
-            echo $bold . $branco . "[+] Caso haja mudança de horário durante/após a partida, aplique w.o\n\n";
+            echo $bold . $branco . "[•] Caso haja mudança de horário durante/após a partida, aplique w.o\n\n";
 
 
-            echo $bold . $branco . "[+] Obtendo os últimos acessos do Google Play Store...\n";
+            echo $bold . $branco . "[•] Obtendo os últimos acessos do Google Play Store...\n";
 
             $comandoUSAGE = shell_exec("adb shell dumpsys usagestats 2>/dev/null | grep -i 'MOVE_TO_FOREGROUND' 2>/dev/null | grep 'package=com.android.vending' 2>/dev/null | awk -F'time=\"' '{print \$2}' 2>/dev/null | awk '{gsub(/\"/, \"\"); print \$1, \$2}' 2>/dev/null | tail -n 5 2>/dev/null");
 
@@ -592,9 +592,9 @@ escolheropcoes:
             } else {
                 echo $bold . "\e[31m[!] Nenhum dado encontrado.\n";
             }
-            echo $bold . $branco . "[+] Caso haja acesso durante/após a partida, aplique w.o\n\n";
+            echo $bold . $branco . "[•] Caso haja acesso durante/após a partida, aplique w.o\n\n";
 
-            echo $bold . $branco . "[+] Obtendo os últimos textos copiados...\n";
+            echo $bold . $branco . "[•] Obtendo os últimos textos copiados...\n";
 
             $comando = "adb logcat -d 2>/dev/null | grep 'hcallSetClipboardTextRpc' 2>/dev/null | sed -E 's/^([0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}).*hcallSetClipboardTextRpc\\(([^)]*)\\).*$/\\1 \\2 \\3/' 2>/dev/null | tail -n 10 2>/dev/null";
             $saida = shell_exec($comando);
@@ -866,9 +866,9 @@ escolheropcoes:
                             $dataInstalacaoFormatada = "Não encontrada";
                         }
 
-                        echo $bold . $amarelo . "[+] Data de acesso da pasta MReplays: $dataFormatada\n";
-                        echo $bold . $amarelo . "[*] Data de instalação do Free Fire: $dataInstalacaoFormatada\n";
-                        echo $bold . $branco . "[#] Verifique a data de instalação do jogo com a data de acesso da pasta MReplays para ver se o jogo foi recém instalado antes da partida, se não, vá no histórico e veja se o player jogou outras partidas recentemente, se sim, aplique  w.o\n\n";
+                        echo $bold . $amarelo . "[•] Data de acesso da pasta MReplays: $dataFormatada\n";
+                        echo $bold . $amarelo . "[•] Data de instalação do Free Fire: $dataInstalacaoFormatada\n";
+                        echo $bold . $branco . "[•] Verifique a data de instalação do jogo com a data de acesso da pasta MReplays para ver se o jogo foi recém instalado antes da partida, se não, vá no histórico e veja se o player jogou outras partidas recentemente, se sim, aplique  w.o\n\n";
                     } else {
                         echo $bold . $vermelho . "[!] Não foi possível obter a data de acesso da pasta MReplays\n\n";
                     }
@@ -882,7 +882,7 @@ escolheropcoes:
 
 
 
-                echo $bold . $branco . "[+] Checando bypass de Holograma...\n";
+                echo $bold . $branco . "[•] Checando bypass de Holograma...\n";
 
                 $pastasParaVerificar = [
                     "/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles",
@@ -983,7 +983,7 @@ escolheropcoes:
                         if ($bypassDetectado) {
                             echo $bold . $vermelho . "[!] Modificando pastas após o fim da partida, aplique w.o\n\n";
                         } else {
-                            echo $bold . $verde . "[+] Nenhum bypass de holograma detectado.\n\n";
+                            echo $bold . $verde . "[•] Nenhum bypass de holograma detectado.\n\n";
                         }
                     } else {
                         echo $bold . $amarelo . "[!] Não foi possível obter a data do último .bin.\n";
@@ -1223,7 +1223,7 @@ escolheropcoes:
                                             echo $bold . $amarelo . "[!] Arquivo shader modificado: " . $nomeArquivo . "\n";
                                             echo $bold . $amarelo . "[!] Horário da modificação: " . $dataModify . "\n"; 
                                             echo $bold . $amarelo . "[*] Data de instalação do Free Fire: " . $dataInstalacaoFormatada . "\n";
-                                            echo $bold . $branco . "[#] Por favor, verifique no App Usage a data de instalação do Free Fire e compare com o horário da modificação. Se for diferente, aplique w.o\n\n";
+                                            echo $bold . $branco . "[*] Por favor, verifique no App Usage a data de instalação do Free Fire e compare com o horário da modificação. Se for diferente, aplique w.o\n\n";
                                             $encontrouReplayPassado = true;
                                             $arquivoSuspeito = $nomeArquivo;
                                         }
@@ -1242,7 +1242,7 @@ escolheropcoes:
                 } elseif ($encontrouReplayPassado) {
                     echo $bold . $vermelho . "[!] Possível modificação em arquivo de shaders detectada. Arquivo: " . $arquivoSuspeito . ", Horário: " . $dataModify . "\n";
                     echo $bold . $vermelho . "[*] Data de instalação do Free Fire: " . $dataInstalacaoFormatada . "\n";
-                    echo $bold . $branco . "[#] Verifique cuidadosamente no App Usage a data de instalação do Free Fire!\n\n";
+                    echo $bold . $branco . "[*] Verifique no App Usage a data de instalação do Free Fire!\n\n";
                 } else {
                     echo $bold . $fverde . "[i] Nenhuma alteração suspeita encontrada.\n";
                 }
@@ -1300,8 +1300,8 @@ escolheropcoes:
                     }
                 }
 
-                echo "\n" . $bold . $amarelo . "[*] Data da última alteração na pasta 'gameassetbundles': " . ($dataChangeFormatada ?: "Não encontrada") . "\n";
-                echo $bold . $branco . "[#] Verifique o horário da última alteração, se for após a partida, aplique w.o\n\n";
+                echo "\n" . $bold . $amarelo . "[*] Data da alteração na pasta 'gameassetbundles': " . ($dataChangeFormatada ?: "Não encontrada") . "\n";
+                echo $bold . $branco . "[x] Verifique o horário da alteração, se for depois da partida, aplique w.o\n\n";
 
                 $diretorioVerificar = "/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android"; 
 
@@ -1353,7 +1353,7 @@ escolheropcoes:
                     echo $resultadoStat . "\n";
                 }
 
-                echo $bold . $branco . "[+] Caso a pasta 'android' esteja modificada após o fim da partida, aplique w.o\n\n";
+                echo $bold . $branco . "[•] Caso a pasta 'android' esteja modificada após o fim da partida, aplique w.o\n\n";
 
                 $diretorioAvatarRes = "/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/optionalavatarres/gameassetbundles";
                 $diretorioOptionalAvatarRes = "/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/optionalavatarres";
@@ -1387,7 +1387,7 @@ escolheropcoes:
                         $intervalo = $agora->getTimestamp() - $dataModificacao->getTimestamp();
 
                         if ($intervalo <= 3600) {
-                            echo $bold . $vermelho . "[!] Possível Bypass detectado! Modificada há menos de 1 hora.\n";
+                            echo $bold . $vermelho . "[!] Possível Bypass detectado! Modificada.\n";
                             echo $vermelho . "    Hora da modificação: " . $dataModificacao->format('H:i:s') . "\n";
                             echo $vermelho . "    Hora atual:          " . $agora->format('H:i:s') . "\n";
                         }
@@ -1453,7 +1453,7 @@ escolheropcoes:
                 }
 
 
-                echo $bold . $branco . "[+] Checando OBB...\n";
+                echo $bold . $branco . "[•] Checando OBB...\n";
 
                 $diretorioObb = "/sdcard/Android/obb/com.dts.freefireth";
                 $comandoObb = 'adb shell "ls ' . escapeshellarg($diretorioObb) . '/*obb* 2>/dev/null"';
@@ -1486,7 +1486,7 @@ escolheropcoes:
 
             
 
-                echo $bold . $branco . "[+] Após verificar no jogo se o acusado está de Holograma  verifique os horários do Shaders e OBB e compare  caso esteja muito diferente as datas, aplique w.o\n\n";
+                echo $bold . $branco . "[•] Após verificar no jogo se o acusado está de Holograma  verifique os horários do Shaders e OBB e compare  caso esteja muito diferente as datas, aplique w.o\n\n";
 
                 echo $bold . $branco . "\n\n\t \n";
                 echo $bold . $branco . "\t                 Com carinho, Rafa...\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -1530,7 +1530,7 @@ escolheropcoes:
                 $resultadoVersaoAndroid = shell_exec($comandoVersaoAndroid);
 
                 if (!empty($resultadoVersaoAndroid)) {
-                    echo $bold . $branco . "[+] Versão do Android: " . trim($resultadoVersaoAndroid) . "\n";
+                    echo $bold . $branco . "[•] Versão do Android: " . trim($resultadoVersaoAndroid) . "\n";
                 } else {
                     echo $bold . $vermelho . "[!] Não foi possível obter a versão do Android.\n";
                 }
@@ -1538,11 +1538,11 @@ escolheropcoes:
                 $comandoSu = 'su 2>&1';
                 $resultadoSu = shell_exec($comandoSu);
 
-                echo $bold . $branco  . "[+] Checando se possui Root (se o programa travar, root detectado)...\n";
+                echo $bold . $branco  . "[•] Checando se possui Root (se o programa travar, root detectado)...\n";
                 if (!empty($resultadoSu) && strpos($resultadoSu, 'No su program found') !== false) {
-                    echo $bold . $fverde . "[-] O dispositivo não tem root.\n\n";
+                    echo $bold . $fverde . "[•] O dispositivo não tem root.\n\n";
                 } else {
-                    echo $bold . $vermelho . "[+] Root detectado no dispositivo Android.\n\n";
+                    echo $bold . $vermelho . "[!] Root detectado no dispositivo Android.\n\n";
                 }
                 
 
@@ -1566,7 +1566,7 @@ escolheropcoes:
             echo $bold . $branco  . "[•] Verificando possível bypass shell...\n";
             detectarBypassShell();
 
-            echo $bold . $branco . "[+] Checando se o dispositivo foi reiniciado...\n";
+            echo $bold . $branco . "[•] Checando se o dispositivo foi reiniciado...\n";
             $comandoUPTIME = shell_exec("adb shell uptime");
 
             if (preg_match('/up (\d+) min/', $comandoUPTIME, $filtros)) {
@@ -1585,14 +1585,14 @@ escolheropcoes:
                     $date = DateTime::createFromFormat('m-d H:i:s', $matchTime[1]);
                     $formattedDate = $date->format('d-m H:i:s'); 
 
-                    echo $bold . $amarelo . "[+] Primeira log do sistema: " . $formattedDate . "\n";
-                    echo $bold . $branco . "[+] Caso a data da primeira log seja durante/após a partida e/ou seja igual a uma data alterada, aplique w.o\n\n";
+                    echo $bold . $amarelo . "[•] Primeira log do sistema: " . $formattedDate . "\n";
+                    echo $bold . $branco . "[•] Caso a data da primeira log seja durante/após a partida e/ou seja igual a uma data alterada, aplique w.o\n\n";
 
                 } else {
                     echo $bold . $vermelho . "[!] Não foi possível capturar a data/hora do sistema.\n\n";
                 }
             
-            echo $bold . $branco . "[+] Verificando mudanças de data/hora...\n";
+            echo $bold . $branco . "[•] Verificando mudanças de data/hora...\n";
 
                 
             $logcatOutput = shell_exec('adb logcat -d | grep "UsageStatsService: Time changed" | grep -v "HCALL"');
@@ -1662,20 +1662,20 @@ escolheropcoes:
 
             
 
-            echo $bold . $branco . "\n[+] Checando se modificou data e hora...\n";
+            echo $bold . $branco . "\n[•] Checando se modificou data...\n";
             $autoTime = trim(shell_exec('adb shell settings get global auto_time'));
             $autoTimeZone = trim(shell_exec('adb shell settings get global auto_time_zone'));
 
             if ($autoTime !== "1" || $autoTimeZone !== "1") {
-                echo $bold . $vermelho . "[!] Possível bypass detectado: data e hora/furo horário automático desativado.\n";
+                echo $bold . $vermelho . "[!] Possível bypass detectado: data e fuso horário automático desativado.\n";
             } else {
-                echo $bold . $fverde . "[i] Data e hora/fuso horário automático estão ativados.\n";
+                echo $bold . $fverde . "[i] Data e fuso horário automático estão ativados.\n";
             }
 
-            echo $bold . $branco . "[+] Caso haja mudança de horário durante/após a partida, aplique w.o\n\n";
+            echo $bold . $branco . "[•] Caso haja mudança de horário durante após a partida, aplique w.o\n\n";
 
 
-            echo $bold . $branco . "[+] Obtendo os últimos acessos do Google Play Store...\n";
+            echo $bold . $branco . "[•] Obtendo os últimos acessos da Play Store...\n";
 
             $comandoUSAGE = shell_exec("adb shell dumpsys usagestats 2>/dev/null | grep -i 'MOVE_TO_FOREGROUND' 2>/dev/null | grep 'package=com.android.vending' 2>/dev/null | awk -F'time=\"' '{print \$2}' 2>/dev/null | awk '{gsub(/\"/, \"\"); print \$1, \$2}' 2>/dev/null | tail -n 5 2>/dev/null");
 
@@ -1685,9 +1685,9 @@ escolheropcoes:
             } else {
                 echo $bold . "\e[31m[!] Nenhum dado encontrado.\n";
             }
-            echo $bold . $branco . "[+] Caso haja acesso durante/após a partida, aplique w.o\n\n";
+            echo $bold . $branco . "[•] Caso haja acesso durante após a partida, aplique w.o\n\n";
 
-            echo $bold . $azul . "[+] Obtendo os últimos textos copiados...\n";
+            echo $bold . $azul . "[•] Obtendo os últimos textos copiados...\n";
 
             $comando = "adb logcat -d 2>/dev/null | grep 'hcallSetClipboardTextRpc' 2>/dev/null | sed -E 's/^([0-9]{2}-[0-9]{2}) ([0-9]{2}:[0-9]{2}:[0-9]{2}).*hcallSetClipboardTextRpc\\(([^)]*)\\).*$/\\1 \\2 \\3/' 2>/dev/null | tail -n 10 2>/dev/null";
             $saida = shell_exec($comando);
@@ -1712,7 +1712,7 @@ escolheropcoes:
 
 
 
-            echo $bold . $azul . "[+] Checando se o replay foi passado...\n";
+            echo $bold . $azul . "[•] Checando se o replay foi passado...\n";
 
                 $comandoArquivos = 'adb shell "ls -t /sdcard/Android/data/com.dts.freefiremax/files/MReplays/*.bin 2>/dev/null"';
                 $output = shell_exec($comandoArquivos) ?? '';
@@ -1957,9 +1957,9 @@ escolheropcoes:
                             $dataInstalacaoFormatada = "Não encontrada";
                         }
 
-                        echo $bold . $amarelo . "[+] Data de acesso da pasta MReplays: $dataFormatada\n";
+                        echo $bold . $amarelo . "[•] Data de acesso da pasta MReplays: $dataFormatada\n";
                         echo $bold . $amarelo . "[*] Data de instalação do Free Fire: $dataInstalacaoFormatada\n";
-                        echo $bold . $branco . "[#] Verifique a data de instalação do jogo com a data de acesso da pasta MReplays para ver se o jogo foi recém instalado antes da partida, se não, vá no histórico e veja se o player jogou outras partidas recentemente, se sim, aplique w.o\n\n";
+                        echo $bold . $branco . "[x] Verifique a data de instalação do jogo com a data de acesso da pasta MReplays para ver se o jogo foi recém instalado antes da partida, se não, vá no histórico e veja se o player jogou outras partidas recentemente, se sim, aplique w.o\n\n";
                     } else {
                         echo $bold . $vermelho . "[!] Não foi possível obter a data de acesso da pasta MReplays\n\n";
                     }
@@ -1973,7 +1973,7 @@ escolheropcoes:
 
 
 
-                echo $bold . $azul . "[+] Checando bypass de Wallhack/Holograma...\n";
+                echo $bold . $azul . "[•] Checando bypass Holograma...\n";
 
 
                 $pastasParaVerificar = [
@@ -2076,7 +2076,7 @@ escolheropcoes:
                         if ($bypassDetectado) {
                             echo $bold . $vermelho . "[!] Modificando pastas após o fim da partida, aplique w.o\n\n";
                         } else {
-                            echo $bold . $verde . "[+] Nenhum bypass de holograma detectado.\n\n";
+                            echo $bold . $verde . "[•] Nenhum bypass de holograma detectado.\n\n";
                         }
                     } else {
                         echo $bold . $amarelo . "[!] Não foi possível obter a data do último .bin.\n";
@@ -2335,7 +2335,7 @@ escolheropcoes:
                 } elseif ($encontrouReplayPassado) {
                     echo $bold . $vermelho . "[!] Possível modificação em arquivo de shaders detectada. Arquivo: " . $arquivoSuspeito . ", Horário: " . $dataModify . "\n";
                     echo $bold . $vermelho . "[*] Data de instalação do Free Fire: " . $dataInstalacaoFormatada . "\n";
-                    echo $bold . $branco . "[#] Verifique cuidadosamente no App Usage a data de instalação do Free Fire!\n\n";
+                    echo $bold . $branco . "[x] Verifique cuidadosamente no App Usage a data de instalação do Free Fire!\n\n";
                 } else {
                     echo $bold . $fverde . "[i] Nenhuma alteração suspeita encontrada.\n";
                 }
@@ -2446,7 +2446,7 @@ escolheropcoes:
                     echo $resultadoStat . "\n";
                 }
 
-                echo $bold . $vermelho . "[+] Caso a pasta 'android' esteja modificada após o fim da partida, aplique w.o\n\n";
+                echo $bold . $vermelho . "[•] Caso a pasta 'android' esteja modificada após o fim da partida, aplique w.o\n\n";
 
                 $diretorioAvatarRes = "/sdcard/Android/data/com.dts.freefiremax/files/contentcache/Optional/android/optionalavatarres/gameassetbundles";
                 $diretorioOptionalAvatarRes = "/sdcard/Android/data/com.dts.freefiremax/files/contentcache/Optional/android/optionalavatarres";
@@ -2588,3 +2588,4 @@ escolheropcoes:
             die();
         }
       }
+
