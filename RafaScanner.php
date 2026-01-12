@@ -2588,17 +2588,3 @@ escolheropcoes:
             die();
         }
       }
-
-
-
-
-
-dia \n\n";
-            die();
-        }
-      }
-
-
-
-
-
