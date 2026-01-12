@@ -389,7 +389,7 @@ escolheropcoes:
                 rafa_banner();
                 goto menuscanner;
             } else {
-                echo $bold . $vermelho . "\n[!] Porta inválida! Retornando ao menu.\n\n" . $cln;
+                echo $bold . $vermelho . "\n[!] Porta inválida.\n\n" . $cln;
                 sleep(2);
                 system("clear");
                 rafa_banner();
@@ -413,7 +413,7 @@ escolheropcoes:
             $comandoDispositivos = shell_exec("adb devices 2>&1");
 
                 if (empty($comandoDispositivos) || strpos($comandoDispositivos, "device") === false || strpos($comandoDispositivos, "no devices") !== false) {
-                    echo "\033[1;31m[!] Nenhum dispositivo encontrado. Faça o pareamento de IP ou conecte um dispositivo via USB.\n\n";
+                    echo "\033[1;31m[!] Nenhum dispositivo encontrado. Faça o pareamento de IP.\n\n";
                     exit;
                 }
 
@@ -427,7 +427,7 @@ escolheropcoes:
                 
                 if (!empty($comandoVerificarFF) && strpos($comandoVerificarFF, "com.dts.freefireth") !== false) {
                 } else {
-                    echo $bold . $vermelho . "[!] O FreeFire está desinstalado, cancelando a telagem...\n\n";
+                    echo $bold . $vermelho . "[!] O FreeFire está desinstalado, cancelando scanner...\n\n";
                     exit;
                 }
 
@@ -436,7 +436,7 @@ escolheropcoes:
                 $resultadoVersaoAndroid = shell_exec($comandoVersaoAndroid);
 
                 if (!empty($resultadoVersaoAndroid)) {
-                    echo $bold . $amarelo  . "[•] Versão do Android: " . trim($resultadoVersaoAndroid) . "\n";
+                    echo $bold . $fverde  . "[•] Versão do Android: " . trim($resultadoVersaoAndroid) . "\n";
                 } else {
                     echo $bold . $vermelho . "[!] Não foi possível obter a versão do Android.\n";
                 }
@@ -445,7 +445,7 @@ escolheropcoes:
                 $comandoSu = 'su 2>&1';
                 $resultadoSu = shell_exec($comandoSu);
 
-                echo $bold . $amarelo . "[!] Checando se possui Root (se o programa travar, root detectado)...\n";
+                echo $bold . $amarelo . "[!] Checando se o dispositivo possui Root...\n";
                 if (!empty($resultadoSu) && strpos($resultadoSu, 'No su program found') !== false) {
                     echo $bold . $amarelo . "[•] O dispositivo não tem root.\n\n";
                 } else {
@@ -470,10 +470,10 @@ escolheropcoes:
             echo $bold . $fverde . "[i] Sessões desnecessárias finalizadas.\n\n";
 
             // Detecção de Bypass Shell
-            echo $bold . $amarelo. "[•] Verificando bypass shell..\n";
+            echo $bold . $branco . "[•] Verificando bypass shell..\n";
             detectarBypassShell();
 
-            echo $bold . $amarelo . "[•] Checando se o dispositivo foi reiniciado...\n";
+            echo $bold . $branco . "[•] Checando se o dispositivo foi reiniciado...\n";
             $comandoUPTIME = shell_exec("adb shell uptime");
 
             if (preg_match('/up (\d+) min/', $comandoUPTIME, $filtros)) {
@@ -493,13 +493,13 @@ escolheropcoes:
                     $formattedDate = $date->format('d-m H:i:s'); 
 
                     echo $bold . $amarelo . "[•] Primeira log do sistema: " . $formattedDate . "\n";
-                    echo $bold . $vermelho . "[•] Caso a data da primeira log seja durante ou após a partida aplique o W.O!\n\n";
+                    echo $bold . $vermelho . "[•] Caso a data da primeira log seja durante ou após a partida aplique w.o\n\n";
 
                 } else {
-                    echo $bold . $vermelho . "[!] Não foi possível capturar a data/hora do sistema.\n\n";
+                    echo $bold . $vermelho . "[!] Não foi possível capturar a data do sistema.\n\n";
                 }
             
-            echo $bold . $amarelo . "[•] Verificando mudanças de data/hora...\n";
+            echo $bold . $amarelo . "[•] Verificando mudanças de data...\n";
 
                 
             $logcatOutput = shell_exec('adb logcat -d | grep "UsageStatsService: Time changed" | grep -v "HCALL"');
@@ -574,12 +574,12 @@ escolheropcoes:
             $autoTimeZone = trim(shell_exec('adb shell settings get global auto_time_zone'));
 
             if ($autoTime !== "1" || $autoTimeZone !== "1") {
-                echo $bold . $vermelho . "[!] Possível bypass detectado: data e hora/furo horário automático desativado.\n";
+                echo $bold . $vermelho . "[!] Possível bypass detectado: data e fuso horário automático desativado.\n";
             } else {
-                echo $bold . $fverde . "[i] Data e hora/fuso horário automático estão ativados.\n";
+                echo $bold . $fverde . "[i] Data e fuso horário automático estão ativados.\n";
             }
 
-            echo $bold . $branco . "[+] Caso haja mudança de horário durante/após a partida, aplique o W.O!\n\n";
+            echo $bold . $branco . "[+] Caso haja mudança de horário durante/após a partida, aplique w.o\n\n";
 
 
             echo $bold . $branco . "[+] Obtendo os últimos acessos do Google Play Store...\n";
@@ -592,7 +592,7 @@ escolheropcoes:
             } else {
                 echo $bold . "\e[31m[!] Nenhum dado encontrado.\n";
             }
-            echo $bold . $branco . "[+] Caso haja acesso durante/após a partida, aplique o W.O!\n\n";
+            echo $bold . $branco . "[+] Caso haja acesso durante/após a partida, aplique w.o\n\n";
 
             echo $bold . $branco . "[+] Obtendo os últimos textos copiados...\n";
 
@@ -834,12 +834,12 @@ escolheropcoes:
                 }
 
                 if (!empty($motivos)) {
-                    echo $bold . $vermelho . "[!] Passador de replay detectado, aplique o W.O!\n";
+                    echo $bold . $vermelho . "[!] Passador de replay detectado, aplique  w.o\n";
                     foreach (array_unique($motivos) as $motivo) {
                         echo "    - " . $motivo . "\n";
                     }
                 } else {
-                    echo $bold . $fverde . "[i] Nenhum replay foi passado e a pasta MReplays está normal.\n";
+                    echo $bold . $fverde . "[i] Nenhum replay foi passado a pasta MReplays está normal.\n";
                 }
 
 
@@ -868,7 +868,7 @@ escolheropcoes:
 
                         echo $bold . $amarelo . "[+] Data de acesso da pasta MReplays: $dataFormatada\n";
                         echo $bold . $amarelo . "[*] Data de instalação do Free Fire: $dataInstalacaoFormatada\n";
-                        echo $bold . $branco . "[#] Verifique a data de instalação do jogo com a data de acesso da pasta MReplays para ver se o jogo foi recém instalado antes da partida, se não, vá no histórico e veja se o player jogou outras partidas recentemente, se sim, aplique o W.O!\n\n";
+                        echo $bold . $branco . "[#] Verifique a data de instalação do jogo com a data de acesso da pasta MReplays para ver se o jogo foi recém instalado antes da partida, se não, vá no histórico e veja se o player jogou outras partidas recentemente, se sim, aplique  w.o\n\n";
                     } else {
                         echo $bold . $vermelho . "[!] Não foi possível obter a data de acesso da pasta MReplays\n\n";
                     }
@@ -882,7 +882,7 @@ escolheropcoes:
 
 
 
-                echo $bold . $branco . "[+] Checando bypass de Wallhack/Holograma...\n";
+                echo $bold . $branco . "[+] Checando bypass de Holograma...\n";
 
                 $pastasParaVerificar = [
                     "/sdcard/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles",
@@ -928,7 +928,7 @@ escolheropcoes:
                                 $dateTimeChange = DateTime::createFromFormat('Y-m-d H:i:s', $dataChangeFormatada);
                                 $dataChangeFormatadaLegivel = $dateTimeChange ? $dateTimeChange->format('d-m-Y H:i:s') : $dataChangeFormatada;
                                 
-                                echo $bold . $vermelho . "[!] Bypass de renomear/substituir na pasta: $nomefinalpasta! Confira se o horário é após a partida, se sim, aplique o W.O!\n";
+                                echo $bold . $vermelho . "[!] Bypass de renomear/substituir na pasta: $nomefinalpasta! Confira se o horário é após a partida, se sim, aplique  w.o\n";
                                 echo $bold . $amarelo . "[i] Horário do renomeio/substituição: $dataChangeFormatadaLegivel\n\n";
                             }
                         }
@@ -981,7 +981,7 @@ escolheropcoes:
                         }
 
                         if ($bypassDetectado) {
-                            echo $bold . $vermelho . "[!] Modificando pastas após o fim da partida, aplique o W.O!\n\n";
+                            echo $bold . $vermelho . "[!] Modificando pastas após o fim da partida, aplique w.o\n\n";
                         } else {
                             echo $bold . $verde . "[+] Nenhum bypass de holograma detectado.\n\n";
                         }
@@ -1079,7 +1079,7 @@ escolheropcoes:
                                         echo $bold . $laranja . "[!] Data de atualização do FF: $dataUpdateFormatada\n";
                                     }
                                     
-                                    echo $bold . $laranja . "[!] Se for após a partida, aplique o W.O!\n\n";
+                                    echo $bold . $laranja . "[!] Se for após a partida, aplique w.o\n\n";
                                     continue;
                                 }
                 
@@ -1089,7 +1089,7 @@ escolheropcoes:
                 
                                     echo $bold . $vermelho . "[!] Arquivo shader modificado: $nomeArquivo\n";
                                     echo $bold . $amarelo . "[i] Horário da modificação: $dataChangeFormatadaLegivel\n";
-                                    echo $bold . $vermelho . "[!] Verifique se a data é após a partida, se sim aplique o W.O!\n\n";
+                                    echo $bold . $vermelho . "[!] Verifique se a data é após a partida, se sim aplique w.o\n\n";
                                 }
                             }
                         }
@@ -2588,6 +2588,7 @@ escolheropcoes:
             die();
         }
       }
+
 
 
 
